@@ -48,7 +48,7 @@ const loginUser = async(req,res)=>{
         if (!emailValidation) {
             return res.status(404).json({ error: 'Unauthorized user' });
         }
-        else if(await bcrypt.compare(password,hashedPassword)){
+        else if(!await bcrypt.compare(password,emailValidation.password)){
             return res.status(401).json({error:'Invalid password'});
         }
         return res.status(200).json({
