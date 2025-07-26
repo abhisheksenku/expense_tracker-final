@@ -1,0 +1,140 @@
+/* === General Page Styling === */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #f1f3f4, #f1f3f4); /* updated */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* === Main Container === */
+.main-container {
+  display: flex;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 800px;
+  max-width: 95%;
+  padding: 2.5rem;
+  transition: transform 0.3s ease;
+}
+
+.main-container:hover {
+  transform: scale(1.01);
+}
+
+/* === Left Panel === */
+.left-panel {
+  width: 40%;
+  padding-right: 2rem;
+  border-right: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.left-panel h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #202124; /* updated */
+}
+
+.left-panel p {
+  font-size: 14px;
+  color: #5f6368; /* updated */
+}
+
+/* === Right Panel === */
+.form-container {
+  width: 60%;
+  padding-left: 2rem;
+}
+
+/* === Form Layout === */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* === Floating Label Group === */
+.input-group {
+  position: relative;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 16px 12px 6px;
+  font-size: 15px;
+  border: 1px solid #ccc; /* updated */
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+  border-color: #1a73e8; /* updated */
+  background-color: #ffffff;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+}
+
+.input-group label {
+  position: absolute;
+  top: 16px;
+  left: 12px;
+  color: #777; /* updated */
+  font-size: 14px;
+  pointer-events: none;
+  background-color: white;
+  padding: 0 4px;
+  transition: 0.2s ease all;
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label,
+.input-group input:valid + label {
+  top: -8px;
+  left: 10px;
+  font-size: 12px;
+  color: #1a73e8; /* updated */
+}
+
+/* === Submit Button === */
+button {
+  padding: 12px;
+  background-color: #1a73e8; /* updated */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #155ac6; /* updated */
+  transform: translateY(-1px);
+}
+
+/* === Footer Text === */
+.text-center {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #5f6368; /* updated */
+}
+
+.text-center a {
+  color: #1a73e8; /* updated */
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.text-center a:hover {
+  text-decoration: underline;
+}
