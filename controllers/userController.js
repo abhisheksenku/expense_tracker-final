@@ -18,6 +18,11 @@ const postUsers = async (req,res)=>{
         return res.status(400).json({error:'Name,email,password are required'})
     }
     try {
+        const existingUser = await userModel.findOne({ where: { email } });
+
+        if (existingUser) {
+            return res.status(409).json({ error: 'User with this email already exists' }); // 409 Conflict
+        }
         const newUser = await userModel.create({
             name,
             email,
