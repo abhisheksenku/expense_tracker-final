@@ -23,10 +23,12 @@ const postUsers = async (req,res)=>{
         if (existingUser) {
             return res.status(409).json({ error: 'User with this email already exists' }); // 409 Conflict
         }
+        const hashedPassword = await bcrypt.hash(password,saltRounds);
+
         const newUser = await userModel.create({
             name,
             email,
-            password
+            password:hashedPassword
         });
         res.status(200).json({
             message: `User ${newUser.name} is added successfully`,
@@ -43,8 +45,11 @@ const loginUser = async(req,res)=>{
         const emailValidation = await userModel.findOne({
             where:{email}
         });
-        if (!emailValidation || password !== emailValidation.password) {
-            return res.status(401).json({ error: 'Invalid email or password' });
+        if (!emailValidation) {
+            return res.status(404).json({ error: 'Unauthorized user' });
+        }
+        else if(await bcrypt.compare(password,hashedPassword)){
+            return res.status(401).json({error:'Invalid password'});
         }
         return res.status(200).json({
             message: 'Login successful',
