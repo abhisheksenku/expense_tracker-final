@@ -37,7 +37,26 @@ const postUsers = async (req,res)=>{
         res.status(500).send('Error while adding the user')
     }
 };
+const loginUser = async(req,res)=>{
+    const{email,password} = req.body;
+    try {
+        const emailValidation = await userModel.findOne({
+            where:{email}
+        });
+        if (!emailValidation || password !== emailValidation.password) {
+            return res.status(401).json({ error: 'Invalid email or password' });
+        }
+        return res.status(200).json({
+            message: 'Login successful',
+            user: { id: emailValidation.id, email: emailValidation.email },
+        });
+    } catch (error) {
+        console.error('Error during login:', error);
+        res.status(500).json({ error: 'Internal server error' });   
+    }
+}
 module.exports = {
     getUsers,
-    postUsers
+    postUsers,
+    loginUser
 }
