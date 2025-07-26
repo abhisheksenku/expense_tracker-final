@@ -4,14 +4,27 @@ const express = require('express');
 const app = express();
 // A port is like a door through which your application communicates on your computer or server.
 const port = 3000;
+const path = require('path');
+require('dotenv').config();
 
+//middlewares
+app.use(express.json());
+app.use(express.static(path.join(__dirname,'views')));
+app.use(express.static(path.join(__dirname,'public')));
+//routes
+const userRoutes = require('./routes/userRoutes');
+//route handler
+app.use('/user',userRoutes);
+//first method that we get
+app.use((req,res,next)=>{
+    console.log(`${req.method} ${req.url}`);
+    next();
+});
+//root path
 app.get('/',(req,res)=>{
-    res.send('Hello your server is working');
-})
-
-
-
-
+    res.sendFile(path.join(__dirname,'views','signup.html'));
+});
+//database synchronization
 const databse = require('./utilities/sql');
 (async ()=>{
     try {
