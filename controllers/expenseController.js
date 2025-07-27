@@ -1,7 +1,10 @@
 const expenseModel = require('../models/expenses');
 const getExpenses = async(req,res)=>{
     try {
-        const expenses = await expenseModel.findAll();
+        const UserId = req.user.id;
+        const expenses = await expenseModel.findAll({
+            where:UserId
+        });
         res.status(200).json(expenses);
     } catch (error) {
         console.error('Error while retrieving expenses:',error);
@@ -10,6 +13,7 @@ const getExpenses = async(req,res)=>{
 };
 const postExpenses = async(req,res)=>{
     const {amount,description,category} = req.body;
+    const UserId = req.user.id;
     if(!amount||!description||!category){
         return res.status(400).json({error:'Name,email,password are required'})
     };
@@ -17,7 +21,8 @@ const postExpenses = async(req,res)=>{
         const newExpense = await expenseModel.create({
             amount,
             description,
-            category
+            category,
+            UserId
         });
         res.status(200).json({
             message: `Expense ${newExpense} is added successfully`,
@@ -31,10 +36,12 @@ const postExpenses = async(req,res)=>{
 const deleteExpenses = async(req,res)=>{
     try {
         const {id} = req.params;
+        const UserId = req.user.id;
         console.log('Deleting expense with ID:', id);
         const expense = await expenseModel.findOne({
             where:{
-                id
+                id,
+                UserId
             }
         });
         if(!expense){

@@ -3,6 +3,9 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const saltRounds = 10;
 require('dotenv').config();
+function generateAccessToken(id) {
+    return jwt.sign({ UserId: id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+}
 const getUsers = async(req,res)=>{
     try {
         const users = await userModel.findAll();
@@ -21,6 +24,7 @@ const postUsers = async (req,res)=>{
         const existingUser = await userModel.findOne({ where: { email } });
 
         if (existingUser) {
+            
             return res.status(409).json({ error: 'User with this email already exists' }); // 409 Conflict
         }
         const hashedPassword = await bcrypt.hash(password,saltRounds);
@@ -51,8 +55,10 @@ const loginUser = async(req,res)=>{
         else if(!await bcrypt.compare(password,emailValidation.password)){
             return res.status(401).json({error:'Invalid password'});
         }
+        const token = generateAccessToken(emailValidation.id);
         return res.status(200).json({
             message: 'Login successful',
+            token,
             user: { id: emailValidation.id, email: emailValidation.email },
         });
     } catch (error) {

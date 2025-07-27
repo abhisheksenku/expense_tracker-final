@@ -16,10 +16,17 @@ document.addEventListener('DOMContentLoaded',async ()=>{
         try {
             const response = await axios.post('http://localhost:3000/user/add',formValues);
             console.log('User added:',response.data);
-            console.log('reponse of add',response)
+            console.log('reponse of add',response);
+            window.location.href = 'login.html';
             signupForm.reset();
-        } catch (error) {
-            console.error('Error while adding the user:', error);
+        } catch (err) {      
+            console.log("Error caught:", err); 
+            if (err.response && err.response.status === 409) {
+              console.log("Alerting user");    
+              alert(err.response.data.error); 
+            } else {
+              alert('Something went wrong!');
+            }
         }
     });
 });

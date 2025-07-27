@@ -28,6 +28,7 @@ app.get('/',(req,res)=>{
 });
 //database synchronization
 const databse = require('./utilities/sql');
+require('./models/association');
 (async ()=>{
     try {
         await databse.sync({force:false});

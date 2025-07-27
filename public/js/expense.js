@@ -1,8 +1,11 @@
 document.addEventListener('DOMContentLoaded',async()=>{
     const expenseForm = document.getElementById('expenseTracker_form');
     const list = document.getElementById('full_list');
+    const token = localStorage.getItem('token');
     try {
-        const response = await axios.get('http://localhost:3000/expense/fetch');
+        const response = await axios.get('http://localhost:3000/expense/fetch',{
+            headers:{Authorization:token}
+        });
         const expenses = response.data;
         expenses.forEach(expense => {
            addToUI(expense,list) 
@@ -16,7 +19,9 @@ document.addEventListener('DOMContentLoaded',async()=>{
         const formValues = Object.fromEntries(formData.entries());
         console.log(formValues);
         try {
-            const response = await axios.post('http://localhost:3000/expense/add',formValues);
+            const response = await axios.post('http://localhost:3000/expense/add',formValues,{
+                headers:{Authorization:token}
+            });
             console.log(response);
             console.log(response.data);
             addToUI(response.data.expense, list);
@@ -31,7 +36,9 @@ document.addEventListener('DOMContentLoaded',async()=>{
         if (event.target.classList.contains('delete')) {
             const id = listItem.dataset.id;
             try {
-                await axios.delete(`http://localhost:3000/expense/delete/${id}`);
+                await axios.delete(`http://localhost:3000/expense/delete/${id}`,{
+                    headers:{Authorization:token}
+                });
                 listItem.remove();
                 window.location.reload();
             } catch (error) {
