@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         try {
             const response = await axios.post('http://localhost:3000/user/login',formValues);
             console.log('Login successful',response.data);
+            window.location.href = 'expense.html';
             loginForm.reset();
         } catch (error) {
             console.error('Error while logging in:', error);

@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded',async ()=>{
     const signupForm = document.getElementById('signupForm');
     try {
         const response = await axios.get('http://localhost:3000/user/fetch');
-        console.log('response.data of fetch',response.data);
+        const users = response.data;
+        console.log('response.data of fetch',users);
         console.log('response of fetch',response)
     } catch (error) {
         
