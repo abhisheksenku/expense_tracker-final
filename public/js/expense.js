@@ -2,6 +2,11 @@ document.addEventListener('DOMContentLoaded',async()=>{
     const expenseForm = document.getElementById('expenseTracker_form');
     const list = document.getElementById('full_list');
     const token = localStorage.getItem('token');
+    if(!token){
+        alert('You must be logged in');
+        window.location.href = 'login.html';
+        return;
+    }
     try {
         const response = await axios.get('http://localhost:3000/expense/fetch',{
             headers:{Authorization:token}

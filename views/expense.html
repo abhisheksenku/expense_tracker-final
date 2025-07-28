@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expense Tracker</title>
     <link rel="stylesheet" href="expense.css">
+    <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
 </head>
 <body>
     <form id="expenseTracker_form">
@@ -29,11 +30,14 @@
             <button type="submit">Add Expenses</button>
         </div>
     </form>
+    <button id="premiumButton">Pay now</button>
+    <!-- <div id="cf_checkout"></div> -->
     <div> 
         <h2>Expense List:</h2>
         <ul id="full_list" class="full_access"></ul>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="/js/expense.js"></script>
+    <script src="/js/payment_modal.js"></script>
 </body>
 </html>
