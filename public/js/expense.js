@@ -8,6 +8,20 @@ document.addEventListener('DOMContentLoaded',async()=>{
         return;
     }
     try {
+        const premiumResponse = await axios.get('http://localhost:3000/premium/status', {
+            headers: { Authorization: token }
+        });
+        const isPremium = premiumResponse.data.isPremium;
+        if(isPremium){
+            if (!document.getElementById('premium')) {
+                const status = document.createElement('p');
+                status.id = 'premium';
+                status.textContent = 'You are now a premium user';
+                status.style.color = 'green';
+                status.style.fontWeight = 'bold';
+                premiumButton.replaceWith(status);
+            }
+        }
         const response = await axios.get('http://localhost:3000/expense/fetch',{
             headers:{Authorization:token}
         });
