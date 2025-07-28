@@ -14,11 +14,13 @@ app.use(express.static(path.join(__dirname,'public')));
 //routes
 const userRoutes = require('./routes/userRoutes');
 const expenseRoutes = require('./routes/expenseRoutes');
-const paymentRoutes = require('./routes/paymentRoutes')
+const paymentRoutes = require('./routes/paymentRoutes');
+const premiumRoutes = require('./routes/premiumRoutes');
 //route handler
 app.use('/user',userRoutes);
 app.use('/expense',expenseRoutes);
 app.use('/pay',paymentRoutes);
+app.use('/premium',premiumRoutes);
 //first method that we get
 app.use((req,res,next)=>{
     console.log(`${req.method} ${req.url}`);

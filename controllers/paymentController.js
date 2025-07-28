@@ -1,5 +1,5 @@
-// const Order = require('../models/order');
-// const User = require('../models/users');
+const Order = require('../models/order');
+const User = require('../models/users');
 const { createOrder, getPaymentStatus } = require('../services/paymentService');
 const jwt = require('jsonwebtoken');
 const handleCreateOrder = async (req, res) => {
@@ -23,7 +23,12 @@ const handleCreateOrder = async (req, res) => {
       customerPhone
       
     );
-    
+    await Order.create({
+      orderId: orderId,
+      paymentId: null,           // will be updated after payment success
+      status: "PENDING",
+      UserId
+    });
     // Send paymentSessionId and orderId back to frontend
     res.status(200).json({
       paymentSessionId,
@@ -54,7 +59,13 @@ const handlePaymentSuccess = async (req, res) => {
   try {
     const { orderId, paymentId } = req.body;
     const UserId = req.user.id;
-    
+    await Order.update(
+      { status: "SUCCESSFUL", paymentId: paymentId },
+      { where: { orderId: orderId,
+        UserId:UserId,
+       } }
+    );
+    await User.update({ isPremium: true }, { where: { id: UserId } });
     res.status(200).json({ message: "Order marked as SUCCESSFUL" });
   } catch (error) {
     console.error("Error in handlePaymentSuccess:", error.message);
@@ -65,6 +76,13 @@ const handlePaymentFailed = async (req, res) => {
   try {
     const { orderId } = req.body;
     const UserId = req.user.id;
+    
+    await Order.update(
+      { status: "FAILED" },
+      { where: { orderId: orderId,
+        UserId:UserId
+       } }
+    );
 
     res.status(200).json({ message: "Order marked as FAILED" });
   } catch (error) {
