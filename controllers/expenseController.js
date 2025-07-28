@@ -1,9 +1,10 @@
 const expenseModel = require('../models/expenses');
+const User = require('../models/users');
 const getExpenses = async(req,res)=>{
     try {
         const UserId = req.user.id;
         const expenses = await expenseModel.findAll({
-            where:UserId
+            where:{UserId}
         });
         res.status(200).json(expenses);
     } catch (error) {
@@ -24,6 +25,10 @@ const postExpenses = async(req,res)=>{
             category,
             UserId
         });
+        const user = await User.findByPk(UserId);
+        user.totalExpenses += parseInt(amount);
+        await user.save();
+
         res.status(200).json({
             message: `Expense ${newExpense} is added successfully`,
             expense:newExpense
@@ -47,7 +52,10 @@ const deleteExpenses = async(req,res)=>{
         if(!expense){
             return res.status(404).send('Expense not found or unauthorized');
         }
+        const user = await User.findByPk(UserId);
+        user.totalExpenses -= expense.amount;
         await expense.destroy();
+        await user.save();
         res.status(200).send('Expense deleted successfully');
     } catch (error) {
         console.error('Error while deleting expense:', error);

@@ -23,6 +23,10 @@ const User = database.define('User',{
     isPremium: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
+    },
+    totalExpenses: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
     }
 },{
     timestamps:true

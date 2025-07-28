@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded',async()=>{
     const expenseForm = document.getElementById('expenseTracker_form');
     const list = document.getElementById('full_list');
     const token = localStorage.getItem('token');
+    const premiumButton = document.getElementById("premiumButton");
+    const leaderboardBtn = document.getElementById("leaderboardBtn");
     if(!token){
         alert('You must be logged in');
         window.location.href = 'login.html';
@@ -13,6 +15,30 @@ document.addEventListener('DOMContentLoaded',async()=>{
         });
         const isPremium = premiumResponse.data.isPremium;
         if(isPremium){
+            leaderboardBtn.style.display = "inline-block";
+            if (!leaderboardBtn.hasListener) {
+                leaderboardBtn.addEventListener('click', async () => {
+                    try {
+                        const response = await axios.get('http://localhost:3000/premium/leaderBoard', {
+                            headers: { Authorization: token }
+                        });
+
+                        const leaderboard = response.data;
+                        const leaderboardList = document.getElementById('leaderboardList');
+                        leaderboardList.innerHTML = '';
+                        document.getElementById('leaderboardSection').style.display = 'block';
+
+                        leaderboard.forEach((entry) => {
+                            const li = document.createElement('li');
+                            li.textContent = `${entry.User.name}: ₹${entry.total_spent}`;
+                            leaderboardList.appendChild(li);
+                        });
+                    } catch (error) {
+                        console.error('Failed to load leaderboard:', error);
+                    }
+                });
+                leaderboardBtn.hasListener = true;
+            }
             if (!document.getElementById('premium')) {
                 const status = document.createElement('p');
                 status.id = 'premium';
@@ -21,6 +47,8 @@ document.addEventListener('DOMContentLoaded',async()=>{
                 status.style.fontWeight = 'bold';
                 premiumButton.replaceWith(status);
             }
+        }else {
+                leaderboardBtn.style.display = "none";
         }
         const response = await axios.get('http://localhost:3000/expense/fetch',{
             headers:{Authorization:token}
