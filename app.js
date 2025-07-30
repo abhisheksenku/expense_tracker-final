@@ -32,6 +32,10 @@ app.use((req,res,next)=>{
 app.get('/',(req,res)=>{
     res.sendFile(path.join(__dirname,'views','signup.html'));
 });
+app.get('/password/resetpassword/:token', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'resetPassword.html'));
+});
+
 //database synchronization
 const databse = require('./utilities/sql');
 require('./models/association');
