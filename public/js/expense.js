@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
 
                         leaderboard.forEach((entry) => {
                             const li = document.createElement('li');
-                            li.textContent = `${entry.User.name}: ₹${entry.total_spent}`;
+                            li.textContent = `${entry.name}: ₹${entry.totalExpenses}`;
                             leaderboardList.appendChild(li);
                         });
                     } catch (error) {

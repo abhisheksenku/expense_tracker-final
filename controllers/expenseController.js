@@ -26,7 +26,8 @@ const postExpenses = async(req,res)=>{
             UserId
         });
         const user = await User.findByPk(UserId);
-        user.totalExpenses += parseInt(amount);
+        //(user.totalExpenses || 0) avoids undefined + amount → NaN.
+        user.totalExpenses = (user.totalExpenses || 0) + parseFloat(amount);
         await user.save();
 
         res.status(200).json({
@@ -53,7 +54,9 @@ const deleteExpenses = async(req,res)=>{
             return res.status(404).send('Expense not found or unauthorized');
         }
         const user = await User.findByPk(UserId);
-        user.totalExpenses -= expense.amount;
+        //Prevents totalExpenses from going below zero
+        //Prevents NaN if totalExpenses was missing or null
+        user.totalExpenses = Math.max(0, (user.totalExpenses || 0) - parseFloat(expense.amount));
         await expense.destroy();
         await user.save();
         res.status(200).send('Expense deleted successfully');
