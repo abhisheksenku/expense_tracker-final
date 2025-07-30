@@ -16,11 +16,13 @@ const userRoutes = require('./routes/userRoutes');
 const expenseRoutes = require('./routes/expenseRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const premiumRoutes = require('./routes/premiumRoutes');
+const forgotPasswordRoutes = require('./routes/forgotPasswordRoutes');
 //route handler
 app.use('/user',userRoutes);
 app.use('/expense',expenseRoutes);
 app.use('/pay',paymentRoutes);
 app.use('/premium',premiumRoutes);
+app.use('/password',forgotPasswordRoutes);
 //first method that we get
 app.use((req,res,next)=>{
     console.log(`${req.method} ${req.url}`);
