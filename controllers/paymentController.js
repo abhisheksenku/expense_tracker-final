@@ -2,7 +2,9 @@ const Order = require('../models/order');
 const User = require('../models/users');
 const { createOrder, getPaymentStatus } = require('../services/paymentService');
 const jwt = require('jsonwebtoken');
+const sequelize = require('../utilities/sql');
 const handleCreateOrder = async (req, res) => {
+  const t = await sequelize.transaction();
   try {
     // Generate a unique order ID
     const orderId = `ORDER_${Date.now()}`;
@@ -12,6 +14,7 @@ const handleCreateOrder = async (req, res) => {
     const customerPhone = "9999999999"; // Replace or get from req.body
     const UserId = req.user.id;
     if (!req.user || !UserId) {
+      await t.rollback();
         return res.status(401).json({ error: "Unauthorized: user not found" });
     }
     // Call service to create order in Cashfree
@@ -28,13 +31,15 @@ const handleCreateOrder = async (req, res) => {
       paymentId: null,           // will be updated after payment success
       status: "PENDING",
       UserId
-    });
+    },{transaction:t});
     // Send paymentSessionId and orderId back to frontend
+    await t.commit();
     res.status(200).json({
       paymentSessionId,
       orderId
     });
   } catch (error) {
+    await t.rollback();
     console.error("Error in handleCreateOrder:", error.message);
     console.error(error);  // This logs full error stack trace - very useful
     res.status(500).json({ error: "Failed to create order" });
@@ -56,6 +61,7 @@ const handlePaymentStatus = async (req, res) => {
   }
 };
 const handlePaymentSuccess = async (req, res) => {
+  const t = await sequelize.transaction();
   try {
     const { orderId, paymentId } = req.body;
     const UserId = req.user.id;
@@ -63,11 +69,13 @@ const handlePaymentSuccess = async (req, res) => {
       { status: "SUCCESSFUL", paymentId: paymentId },
       { where: { orderId: orderId,
         UserId:UserId,
-       } }
+       },transaction:t }, 
     );
-    await User.update({ isPremium: true }, { where: { id: UserId } });
+    await User.update({ isPremium: true }, { where: { id: UserId }, transaction:t });
+    await t.commit();
     res.status(200).json({ message: "Order marked as SUCCESSFUL" });
   } catch (error) {
+    await t.rollback();
     console.error("Error in handlePaymentSuccess:", error.message);
     res.status(500).json({ error: "Failed to update order" });
   }
@@ -76,12 +84,10 @@ const handlePaymentFailed = async (req, res) => {
   try {
     const { orderId } = req.body;
     const UserId = req.user.id;
-    
+
     await Order.update(
       { status: "FAILED" },
-      { where: { orderId: orderId,
-        UserId:UserId
-       } }
+      { where: { orderId, UserId } }
     );
 
     res.status(200).json({ message: "Order marked as FAILED" });
@@ -90,7 +96,6 @@ const handlePaymentFailed = async (req, res) => {
     res.status(500).json({ error: "Failed to update order" });
   }
 };
-
 
 module.exports = {
   handleCreateOrder,
