@@ -7,6 +7,10 @@ const Expense = database.define('Expense',{
         allowNull:false,
         autoIncrement:true
     },
+    date:{
+        type:DataTypes.DATEONLY,
+        allowNull:false
+    },
     amount:{
         type:DataTypes.INTEGER,
         allowNull:true
@@ -15,8 +19,12 @@ const Expense = database.define('Expense',{
         type:DataTypes.STRING,
         allowNull:false
     },
+    income:{
+        type:DataTypes.INTEGER,
+        allowNull:true
+    },
     category:{
-        type:DataTypes.STRING,
+        type:DataTypes.INTEGER,
         allowNull:false
     }
 },{

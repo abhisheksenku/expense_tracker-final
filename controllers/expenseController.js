@@ -14,23 +14,40 @@ const getExpenses = async(req,res)=>{
     }
 };
 const postExpenses = async(req,res)=>{
-    const {amount,description,category} = req.body;
+    const {date,amount,description,category} = req.body;
     const UserId = req.user.id;
     if(!amount||!description||!category){
         return res.status(400).json({error:'Name,email,password are required'})
     };
     const t = await sequelize.transaction();
     try {
-        const newExpense = await expenseModel.create({
-            amount,
-            description,
-            category,
-            UserId
-        },{transaction:t});
-        const user = await User.findByPk(UserId);
-        //(user.totalExpenses || 0) avoids undefined + amount → NaN.
-        user.totalExpenses = (user.totalExpenses || 0) + parseFloat(amount);
-        await user.save({transaction:t});
+        let newExpense;
+        if(category.toLowerCase()==='salary'){
+            newExpense = await expenseModel.create({
+                            date,
+                            amount:null,
+                            description,
+                            category,
+                            income:parseFloat(amount),
+                            UserId
+                        },{transaction:t});
+            const user = await User.findByPk(UserId, { transaction: t });
+            user.totalIncome = (user.totalIncome || 0) + parseFloat(amount);
+            await user.save({ transaction: t });
+        }else{
+            newExpense = await expenseModel.create({
+                            date,
+                            amount:parseFloat(amount),
+                            description,
+                            category,
+                            income:null,
+                            UserId
+                        },{transaction:t});            
+            const user = await User.findByPk(UserId, { transaction: t });
+            user.totalExpenses = (user.totalExpenses || 0) + parseFloat(amount); 
+            await user.save({ transaction: t });
+        }        
+        
         await t.commit();
         res.status(200).json({
             message: `Expense ${newExpense} is added successfully`,

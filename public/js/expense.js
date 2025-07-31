@@ -72,6 +72,9 @@ document.addEventListener('DOMContentLoaded',async()=>{
         const formData = new FormData(expenseForm);
         const formValues = Object.fromEntries(formData.entries());
         console.log(formValues);
+        if (!formValues.date) {
+            formValues.date = new Date().toISOString().split('T')[0];
+        }
         try {
             const response = await axios.post('http://localhost:3000/expense/add',formValues,{
                 headers:{Authorization:token}

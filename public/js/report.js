@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         allExpenses = response.data;
 
         populateFilters(allExpenses);
-        fetchProducts(1); // default page 1
+        fetchProducts(1); 
     } catch (error) {
         console.error('Failed to load expenses:', error);
     }
@@ -80,6 +80,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         expenses.sort((a, b) => new Date(a.date) - new Date(b.date));
 
         expenses.forEach(exp => {
+            //like first we will check whther category is salry true or not
+            //then if this is true we are going to keep this in incomeAmount and making expense
+            //zero as it is false in that case
+            
             const isIncome = exp.category.toLowerCase() === 'salary';
             const incomeAmount = isIncome ? parseFloat(exp.income) : 0;
             const expenseAmount = !isIncome ? parseFloat(exp.amount) : 0;
