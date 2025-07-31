@@ -13,21 +13,21 @@
     <div class="filters">
       <label for="monthFilter">Month:</label>
       <select id="monthFilter">
-        <option value="">ALL</option>
+        <option value="">All</option>
       </select>
 
       <label for="yearFilter">Year:</label>
       <select id="yearFilter">
-        <option value="">ALL</option>
+        <option value="">All</option>
       </select>
 
       <label for="startDate">Start Date:</label>
-      <input type="date" id="startDate">
+      <input type="date" id="startDate" />
 
       <label for="endDate">End Date:</label>
-      <input type="date" id="endDate">
+      <input type="date" id="endDate" />
 
-      <button id="applyFilters">Apply</button>
+      <button id="applyFilters">Apply Filters</button>
     </div>
 
     <div class="actions">
@@ -63,10 +63,23 @@
       </table>
     </div>
 
-    <!-- Pagination container added -->
-    <div id="pagination" class="pagination-container"></div>
+    <!-- Expense List Section (used by fetchProducts) -->
+    <h2>Expense List</h2>
+    <ul id="expenseList"></ul>
 
-  </div> <!-- end of container -->
+    <!-- Pagination and Items-Per-Page Controls -->
+    <div class="pagination-container">
+      <div id="pagination"></div>
+      <label for="itemsPerPage">Expenses per page:</label>
+      <select id="itemsPerPage">
+        <option value="5">5</option>
+        <option value="10" selected>10</option>
+        <option value="20">20</option>
+        <option value="40">40</option>
+      </select>
+      <div id="pagination-controls"></div>
+    </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="/js/report.js"></script>

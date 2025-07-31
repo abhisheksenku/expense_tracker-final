@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const startDateInput = document.getElementById('startDate');
     const endDateInput = document.getElementById('endDate');
     const applyFiltersBtn = document.getElementById('applyFilters');
-
+    const itemsSelect = document.getElementById('itemsPerPage');
     const tbody = document.getElementById('expense-body');
     const incomeTotalEl = document.getElementById('incomeTotal');
     const expenseTotalEl = document.getElementById('expenseTotal');
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         allExpenses = response.data;
 
         populateFilters(allExpenses);
-        fetchProducts(1); 
+        renderTable(allExpenses); 
     } catch (error) {
         console.error('Failed to load expenses:', error);
     }
@@ -71,6 +71,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         renderTable(filtered);
     });
+    
+    // Items per page
+    const savedItemsPerPage = localStorage.getItem('itemsPerPage') || '10';
+    itemsSelect.value = savedItemsPerPage;
+    fetchProducts(1, parseInt(savedItemsPerPage));
+
+    itemsSelect.addEventListener('change', () => {
+        const newLimit = parseInt(itemsSelect.value);
+        localStorage.setItem('itemsPerPage', newLimit);
+        fetchProducts(1, newLimit);
+    });
 
     function renderTable(expenses) {
         tbody.innerHTML = '';
@@ -83,7 +94,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             //like first we will check whther category is salry true or not
             //then if this is true we are going to keep this in incomeAmount and making expense
             //zero as it is false in that case
-            
+
             const isIncome = exp.category.toLowerCase() === 'salary';
             const incomeAmount = isIncome ? parseFloat(exp.income) : 0;
             const expenseAmount = !isIncome ? parseFloat(exp.amount) : 0;
@@ -107,8 +118,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         savingsTotal.textContent = (totalIncome - totalExpense).toFixed(2);
     }
 
-    function fetchProducts(page) {
-        const limit = 10; // fixed to 10 items per page
+    function fetchProducts(page,limit) {
+        // const limit = 10; // fixed to 10 items per page
         axios.get(`http://localhost:3000/report/paginate?page=${page}&limit=${limit}`, {
             headers: { Authorization: token }
         })
@@ -121,13 +132,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             paginationDiv.innerHTML = '';
 
             if (pagination.hasPreviousPage) {
-                paginationDiv.appendChild(createPageButton(pagination.previousPage, 'Prev'));
+                paginationDiv.appendChild(createPageButton(pagination.previousPage, 'Prev',limit));
             }
 
-            paginationDiv.appendChild(createPageButton(pagination.currentPage, `${pagination.currentPage}`));
+            paginationDiv.appendChild(createPageButton(pagination.currentPage, `${pagination.currentPage}`,limit));
 
             if (pagination.hasNextPage) {
-                paginationDiv.appendChild(createPageButton(pagination.nextPage, 'Next'));
+                paginationDiv.appendChild(createPageButton(pagination.nextPage, 'Next',limit));
             }
         })
         .catch(err => {
@@ -135,10 +146,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    function createPageButton(pageNumber, text) {
+    function createPageButton(pageNumber, text,limit) {
         const btn = document.createElement('button');
         btn.innerText = text;
-        btn.onclick = () => fetchProducts(pageNumber);
+        btn.onclick = () => fetchProducts(pageNumber, limit);
         return btn;
     }
 });
