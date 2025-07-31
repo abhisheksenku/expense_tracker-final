@@ -109,6 +109,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <td>${exp.category}</td>
                 <td>${isIncome ? '₹' + incomeAmount.toFixed(2) : '-'}</td>
                 <td>${!isIncome ? '₹' + expenseAmount.toFixed(2) : '-'}</td>
+                <td>${exp.note}</td>
             `;
             tbody.appendChild(row);
         });

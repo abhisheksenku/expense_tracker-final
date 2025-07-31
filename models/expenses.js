@@ -19,14 +19,19 @@ const Expense = database.define('Expense',{
         type:DataTypes.STRING,
         allowNull:false
     },
+    category:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
     income:{
         type:DataTypes.INTEGER,
         allowNull:true
     },
-    category:{
-        type:DataTypes.INTEGER,
-        allowNull:false
+    note: {
+        type: DataTypes.STRING,
+        allowNull: true
     }
+
 },{
     timestamps:true
 });
