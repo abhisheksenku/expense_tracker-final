@@ -10,6 +10,26 @@
   <div class="container">
     <h1>Expense Report</h1>
 
+    <div class="filters">
+      <label for="monthFilter">Month:</label>
+      <select id="monthFilter">
+        <option value="">ALL</option>
+      </select>
+
+      <label for="yearFilter">Year:</label>
+      <select id="yearFilter">
+        <option value="">ALL</option>
+      </select>
+
+      <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate">
+
+      <label for="endDate">End Date:</label>
+      <input type="date" id="endDate">
+
+      <button id="applyFilters">Apply</button>
+    </div>
+
     <div class="actions">
       <button id="downloadBtn" disabled>Download Report</button>
     </div>
@@ -27,28 +47,6 @@
         </thead>
         <tbody id="expense-body">
           <!-- JS will populate this -->
-           <!-- example data -->
-            <tr>
-                <td>2025-07-01</td>
-                <td>Freelance Work</td>
-                <td>Income</td>
-                <td>₹5000</td>
-                <td>—</td>
-            </tr>
-            <tr>
-                <td>2025-07-02</td>
-                <td>Groceries</td>
-                <td>Food</td>
-                <td>—</td>
-                <td>₹1200</td>
-            </tr>
-            <tr>
-                <td>2025-07-03</td>
-                <td>Movie</td>
-                <td>Entertainment</td>
-                <td>—</td>
-                <td>₹350</td>
-            </tr>
         </tbody>
         <tfoot>
           <tr>
@@ -64,8 +62,11 @@
         </tfoot>
       </table>
     </div>
-    </div>
-  </div>
+
+    <!-- Pagination container added -->
+    <div id="pagination" class="pagination-container"></div>
+
+  </div> <!-- end of container -->
 
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="/js/report.js"></script>
