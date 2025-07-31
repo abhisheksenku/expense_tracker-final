@@ -1,0 +1,108 @@
+/* General Page Styling */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #e0eafc, #cfdef3);
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Actions */
+.actions {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.actions button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.actions button:hover {
+  background-color: #45a049;
+}
+
+.actions button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+/* Table Styling */
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+thead {
+  background-color: #2980b9;
+  color: white;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+tfoot td {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+/* Product List */
+#expenseList {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 20px;
+}
+
+#expenseList li {
+  background-color: #f9f9f9;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  border-left: 5px solid #2980b9;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .actions button {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  table, thead, tbody, th, td, tr {
+    font-size: 14px;
+  }
+
+  #expenseList li {
+    font-size: 14px;
+  }
+}

@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
     const token = localStorage.getItem('token');
     const premiumButton = document.getElementById("premiumButton");
     const leaderboardBtn = document.getElementById("leaderboardBtn");
+    const reportButton = document.getElementById('reportButton');
     if(!token){
         alert('You must be logged in');
         window.location.href = 'login.html';
@@ -15,7 +16,9 @@ document.addEventListener('DOMContentLoaded',async()=>{
         });
         const isPremium = premiumResponse.data.isPremium;
         if(isPremium){
+            //these two buttons are shown if user is premium holder
             leaderboardBtn.style.display = "inline-block";
+            reportButton.style.display = 'inline-block'
             if (!leaderboardBtn.hasListener) {
                 leaderboardBtn.addEventListener('click', async () => {
                     try {
@@ -47,8 +50,12 @@ document.addEventListener('DOMContentLoaded',async()=>{
                 status.style.fontWeight = 'bold';
                 premiumButton.replaceWith(status);
             }
+            reportButton.addEventListener('click',()=>{
+                
+            })
         }else {
                 leaderboardBtn.style.display = "none";
+                reportButton.style.display = 'none';
         }
         const response = await axios.get('http://localhost:3000/expense/fetch',{
             headers:{Authorization:token}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Expense Report</title>
+  <link rel="stylesheet" href="reportCheck.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Expense Report</h1>
+
+    <div class="actions">
+      <button id="downloadBtn">Download Report</button>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Income</th>
+            <th>Expense</th>
+          </tr>
+        </thead>
+        <tbody id="expense-body">
+          <tr>
+            <td>2025-07-01</td>
+            <td>Freelance Work</td>
+            <td>Income</td>
+            <td>₹5000</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>2025-07-02</td>
+            <td>Groceries</td>
+            <td>Food</td>
+            <td>—</td>
+            <td>₹1200</td>
+          </tr>
+          <tr>
+            <td>2025-07-03</td>
+            <td>Movie</td>
+            <td>Entertainment</td>
+            <td>—</td>
+            <td>₹350</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3"><strong>Total</strong></td>
+            <td><strong>₹5000</strong></td>
+            <td><strong>₹1550</strong></td>
+          </tr>
+          <tr>
+            <td colspan="5" style="text-align: right;">
+              <strong>Savings: ₹3450</strong>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h2>Product List</h2>
+    <ul id="expenseList">
+      <li>Groceries: ₹1200</li>
+      <li>Movie: ₹350</li>
+      <li>Freelance Work: ₹5000</li>
+    </ul>
+  </div>
+</body>
+</html>
