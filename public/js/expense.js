@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
                 premiumButton.replaceWith(status);
             }
             reportButton.addEventListener('click',()=>{
-                
+                window.location.href = 'report.html'
             })
         }else {
                 leaderboardBtn.style.display = "none";
