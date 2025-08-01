@@ -6,11 +6,19 @@ const app = express();
 const port = 3000;
 const path = require('path');
 require('dotenv').config();
+const morgan = require('morgan');
+const fs = require('fs');
+//to write all the log statements into a file rather than in console
+const accessLogStream = fs.createWriteStream(
+    path.join(__dirname,'access.log'),
+    {flags:'a'}
+);
 
 //middlewares
 app.use(express.json());
 app.use(express.static(path.join(__dirname,'views')));
 app.use(express.static(path.join(__dirname,'public')));
+app.use(morgan('combined',{stream:accessLogStream}));
 //routes
 const userRoutes = require('./routes/userRoutes');
 const expenseRoutes = require('./routes/expenseRoutes');
@@ -18,6 +26,7 @@ const paymentRoutes = require('./routes/paymentRoutes');
 const premiumRoutes = require('./routes/premiumRoutes');
 const forgotPasswordRoutes = require('./routes/forgotPasswordRoutes');
 const reportRoutes = require('./routes/reportRoutes');
+
 //route handler
 app.use('/user',userRoutes);
 app.use('/expense',expenseRoutes);

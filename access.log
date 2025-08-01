@@ -1,0 +1,6 @@
+::1 - - [01/Aug/2025:06:01:57 +0000] "GET / HTTP/1.1" 200 1285 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+::1 - - [01/Aug/2025:06:01:58 +0000] "GET /favicon.ico HTTP/1.1" 404 150 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+::1 - - [01/Aug/2025:06:01:58 +0000] "GET /user/fetch HTTP/1.1" 200 237 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+::1 - - [01/Aug/2025:06:02:06 +0000] "POST /user/login HTTP/1.1" 200 224 "http://localhost:3000/login.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+::1 - - [01/Aug/2025:06:02:06 +0000] "GET /premium/status HTTP/1.1" 200 19 "http://localhost:3000/expense.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+::1 - - [01/Aug/2025:06:02:06 +0000] "GET /expense/fetch HTTP/1.1" 200 199 "http://localhost:3000/expense.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
