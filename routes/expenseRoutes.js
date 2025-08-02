@@ -5,4 +5,5 @@ const userAuthenticate = require('../middleware/auth');
 router.get('/fetch',userAuthenticate.authenticate,expenseController.getExpenses);
 router.post('/add',userAuthenticate.authenticate,expenseController.postExpenses);
 router.delete('/delete/:id',userAuthenticate.authenticate,expenseController.deleteExpenses);
+router.get('/download',userAuthenticate.authenticate,expenseController.downloadReport);
 module.exports = router;

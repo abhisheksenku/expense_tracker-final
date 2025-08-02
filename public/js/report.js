@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const incomeTotalEl = document.getElementById('incomeTotal');
     const expenseTotalEl = document.getElementById('expenseTotal');
     const savingsTotal = document.getElementById('savingsTotal');
+    const downloadBtn = document.getElementById('downloadBtn');
 
     let allExpenses = [];
 
@@ -82,6 +83,25 @@ document.addEventListener('DOMContentLoaded', async () => {
         localStorage.setItem('itemsPerPage', newLimit);
         fetchProducts(1, newLimit);
     });
+    downloadBtn.addEventListener('click',async()=>{
+        try {
+            const response = await axios.get('http://localhost:3000/expense/download', {
+                headers: { Authorization: token }
+            });
+            if (response.data.success) {
+                const fileURL = response.data.fileURL;
+                const a = document.createElement('a');
+                a.href = fileURL;
+                a.download = 'ExpenseReport.txt';
+                a.click();
+            } else {
+                alert('Failed to download the report.');
+            }
+        } catch (error) {
+            console.error('Download failed:', error);
+            alert('An error occurred while downloading the report.');
+        }
+    })
 
     function renderTable(expenses) {
         tbody.innerHTML = '';
