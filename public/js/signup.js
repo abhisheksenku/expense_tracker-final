@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded',async ()=>{
     const signupForm = document.getElementById('signupForm');
+    const BASE_URL = 'http://65.2.33.7:3000';
     try {
         const response = await axios.get('http://localhost:3000/user/fetch');
         const users = response.data;
@@ -14,7 +15,8 @@ document.addEventListener('DOMContentLoaded',async ()=>{
         const formValues = Object.fromEntries(formData.entries());
         // console.log(formValues);
         try {
-            const response = await axios.post('http://localhost:3000/user/add',formValues);
+            const response = await axios.post(`${BASE_URL}/user/add',formValues`);
+            // const response = await axios.post('http://localhost:3000/user/add',formValues);
             console.log('User added:',response.data);
             console.log('reponse of add',response);
             window.location.href = 'login.html';
