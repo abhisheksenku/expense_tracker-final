@@ -97,7 +97,6 @@ document.addEventListener('DOMContentLoaded',async()=>{
                     headers:{Authorization:token}
                 });
                 listItem.remove();
-                window.location.reload();
             } catch (error) {
                 console.log('Error while deleting:', error);
             }

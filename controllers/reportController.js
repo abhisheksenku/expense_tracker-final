@@ -7,6 +7,7 @@ const pagination = async (req, res) => {
         const offset = (page - 1) * limit;
 
         const { count, rows } = await Expense.findAndCountAll({
+            where: { UserId: req.user.id },
             offset,
             limit
         });
