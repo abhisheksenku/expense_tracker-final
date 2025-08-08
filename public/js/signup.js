@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded',async ()=>{
     const signupForm = document.getElementById('signupForm');
     const BASE_URL = 'http://65.2.33.7:3000';
     try {
-        const response = await axios.get('http://localhost:3000/user/fetch');
+        const response = await axios.get(`${BASE_URL}/user/fetch`);
         const users = response.data;
         console.log('response.data of fetch',users);
         console.log('response of fetch',response)
