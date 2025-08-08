@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', async () => {
+    const BASE_URL = 'http://65.2.33.7:3000';
     const token = localStorage.getItem('token');
 
     const monthFilter = document.getElementById('monthFilter');
@@ -16,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     let allExpenses = [];
 
     try {
-        const response = await axios.get('http://localhost:3000/expense/fetch', {
+        const response = await axios.get(`${BASE_URL}/expense/fetch`, {
             headers: { Authorization: token }
         });
         allExpenses = response.data;
@@ -85,7 +86,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
     downloadBtn.addEventListener('click',async()=>{
         try {
-            const response = await axios.get('http://localhost:3000/expense/download', {
+            const response = await axios.get(`${BASE_URL}/expense/download`, {
                 headers: { Authorization: token }
             });
             if (response.data.success) {
@@ -141,7 +142,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function fetchProducts(page,limit) {
         // const limit = 10; // fixed to 10 items per page
-        axios.get(`http://localhost:3000/report/paginate?page=${page}&limit=${limit}`, {
+        axios.get(`${BASE_URL}/report/paginate?page=${page}&limit=${limit}`, {
             headers: { Authorization: token }
         })
         .then(response => {

@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded',()=>{
+    const BASE_URL = 'http://65.2.33.7:3000';
     const loginForm = document.getElementById('loginForm');
     const forgotBtn = document.getElementById('forgotPasswordBtn');
     const forgotPasswordForm = document.getElementById('forgotPasswordForm');
@@ -7,7 +8,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         const formData = new FormData(loginForm);
         const formValues = Object.fromEntries(formData.entries());
         try {
-            const response = await axios.post('http://localhost:3000/user/login',formValues);
+            const response = await axios.post(`${BASE_URL}/user/login`,formValues);
             console.log('Login successful',response.data);
             localStorage.setItem('token',response.data.token);
             window.location.href = 'expense.html';
@@ -26,7 +27,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         e.preventDefault();
         const email = document.getElementById('forgotEmail').value;
         try {
-            const response = await axios.post('http://localhost:3000/password/forgotpassword', { email });
+            const response = await axios.post(`${BASE_URL}/password/forgotpassword`, { email });
             // console.log('Reset link is sent successfully', response.data);
             alert('If this email exists, a mail has been sent.');
             forgotPasswordForm.reset();

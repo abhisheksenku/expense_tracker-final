@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded',async ()=>{
         const formValues = Object.fromEntries(formData.entries());
         // console.log(formValues);
         try {
-            const response = await axios.post(`${BASE_URL}/user/add',formValues`);
+            const response = await axios.post(`${BASE_URL}/user/add`,formValues);
             // const response = await axios.post('http://localhost:3000/user/add',formValues);
             console.log('User added:',response.data);
             console.log('reponse of add',response);

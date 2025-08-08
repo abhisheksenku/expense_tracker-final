@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded',async()=>{
+    const BASE_URL = 'http://65.2.33.7:3000';
     const expenseForm = document.getElementById('expenseTracker_form');
     const list = document.getElementById('full_list');
     const token = localStorage.getItem('token');
@@ -11,7 +12,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
         return;
     }
     try {
-        const premiumResponse = await axios.get('http://localhost:3000/premium/status', {
+        const premiumResponse = await axios.get(`${BASE_URL}/premium/status`, {
             headers: { Authorization: token }
         });
         const isPremium = premiumResponse.data.isPremium;
@@ -22,7 +23,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
             if (!leaderboardBtn.hasListener) {
                 leaderboardBtn.addEventListener('click', async () => {
                     try {
-                        const response = await axios.get('http://localhost:3000/premium/leaderBoard', {
+                        const response = await axios.get(`${BASE_URL}/premium/leaderBoard`, {
                             headers: { Authorization: token }
                         });
 
@@ -57,7 +58,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
                 leaderboardBtn.style.display = "none";
                 reportButton.style.display = 'none';
         }
-        const response = await axios.get('http://localhost:3000/expense/fetch',{
+        const response = await axios.get(`${BASE_URL}/expense/fetch`,{
             headers:{Authorization:token}
         });
         const expenses = response.data;
@@ -76,7 +77,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
             formValues.date = new Date().toISOString().split('T')[0];
         }
         try {
-            const response = await axios.post('http://localhost:3000/expense/add',formValues,{
+            const response = await axios.post(`${BASE_URL}/expense/add`,formValues,{
                 headers:{Authorization:token}
             });
             console.log(response);
@@ -93,7 +94,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
         if (event.target.classList.contains('delete')) {
             const id = listItem.dataset.id;
             try {
-                await axios.delete(`http://localhost:3000/expense/delete/${id}`,{
+                await axios.delete(`${BASE_URL}/expense/delete/${id}`,{
                     headers:{Authorization:token}
                 });
                 listItem.remove();

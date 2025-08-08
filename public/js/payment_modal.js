@@ -2,10 +2,11 @@ const premiumButton = document.getElementById('premiumButton');
 const cashfree = new Cashfree({ mode: "sandbox" });
 const token = localStorage.getItem('token');
 console.log("Sending token:", token);
+const BASE_URL = 'http://65.2.33.7:3000';
 premiumButton.addEventListener('click', async () => {  
     try {
         const response = await axios.post(
-            'http://localhost:3000/pay/payment',{},
+            `${BASE_URL}/pay/payment`,{},
             {
                 headers: {
                     Authorization: token
@@ -29,7 +30,7 @@ premiumButton.addEventListener('click', async () => {
             alert("Transaction Failed or Cancelled");
 
             await axios.post(
-                'http://localhost:3000/pay/payment-failed',
+                `${BASE_URL}/pay/payment-failed`,
                 { orderId },
                 {
                     headers: {
@@ -49,7 +50,7 @@ premiumButton.addEventListener('click', async () => {
             console.log("Payment Details:", result.paymentDetails);
 
             await axios.post(
-                'http://localhost:3000/pay/payment-success',
+                `${BASE_URL}/pay/payment-success`,
                 { orderId, paymentId },
                 {
                     headers: {

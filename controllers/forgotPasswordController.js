@@ -24,7 +24,7 @@ const requestPasswordReset = async (req, res) => {
         UserId:user.id
 
     })
-    const resetLink = `http://localhost:3000/password/resetpassword/${token}`;
+    const resetLink = `http://65.2.33.7:3000/password/resetpassword/${token}`;
 
     sendMail({
       toEmail: email,
