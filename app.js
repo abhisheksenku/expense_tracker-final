@@ -6,7 +6,7 @@ const app = express();
 require('dotenv').config();
 const port = process.env.PORT | 3000;
 const path = require('path');
-
+const cors = require('cors');
 const morgan = require('morgan');
 const fs = require('fs');
 //to write all the log statements into a file rather than in console
@@ -14,6 +14,10 @@ const accessLogStream = fs.createWriteStream(
     path.join(__dirname,'access.log'),
     {flags:'a'}
 );
+app.use(cors({
+  origin: ['http://127.0.0.1:5500', 'http://65.2.33.7'],                 
+  methods: ['GET','POST','PUT','DELETE','PATCH','OPTIONS']
+}));
 
 //middlewares
 app.use(express.json());
