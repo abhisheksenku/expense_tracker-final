@@ -1,6 +1,5 @@
 const premiumButton = document.getElementById('premiumButton');
 const cashfree = new Cashfree({ mode: "sandbox" });
-const BASE_URL = 'http://65.2.33.7:3000';
 
 premiumButton.addEventListener('click', async () => {
     try {

@@ -1,7 +1,5 @@
 const cashfree = new Cashfree({ mode: "sandbox" });
 const token = localStorage.getItem('token');
-const BASE_URL = 'http://65.2.33.7:3000';
-
 document.getElementById("premiumButton").addEventListener('click', async () => {
     try {
         const response = await axios.post(`${BASE_URL}/pay/pay`,{},{

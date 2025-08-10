@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const BASE_URL = 'http://65.2.33.7:3000';
     const token = localStorage.getItem('token');
 
     const monthFilter = document.getElementById('monthFilter');

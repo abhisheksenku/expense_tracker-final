@@ -2,7 +2,6 @@ const premiumButton = document.getElementById('premiumButton');
 const cashfree = new Cashfree({ mode: "sandbox" });
 const token = localStorage.getItem('token');
 console.log("Sending token:", token);
-const BASE_URL = 'http://65.2.33.7:3000';
 premiumButton.addEventListener('click', async () => {  
     try {
         const response = await axios.post(

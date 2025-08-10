@@ -60,7 +60,7 @@ require('./models/association');
         await databse.sync({force:false});
         app.listen(port,()=>{
             //this console.log will be visible in terminal
-            console.log(`Server is running at http://65.2.33.7:3000:${port}`);
+            console.log(`Server is running at http://localhost:${port}`);
         })
     } catch (error) {
         console.error('Unable to connect to database')    

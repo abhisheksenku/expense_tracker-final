@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded',async()=>{
-    const BASE_URL = 'http://65.2.33.7:3000';
     const expenseForm = document.getElementById('expenseTracker_form');
     const list = document.getElementById('full_list');
     const token = localStorage.getItem('token');

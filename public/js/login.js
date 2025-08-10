@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded',()=>{
-    const BASE_URL = 'http://65.2.33.7:3000';
     const loginForm = document.getElementById('loginForm');
     const forgotBtn = document.getElementById('forgotPasswordBtn');
     const forgotPasswordForm = document.getElementById('forgotPasswordForm');
