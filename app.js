@@ -12,10 +12,10 @@ const cors = require('cors');
 const morgan = require('morgan');
 const fs = require('fs');
 //to write all the log statements into a file rather than in console
-// const accessLogStream = fs.createWriteStream(
-//     path.join(__dirname,'access.log'),
-//     {flags:'a'}
-// );
+const accessLogStream = fs.createWriteStream(
+    path.join(__dirname,'access.log'),
+    {flags:'a'}
+);
 // const accessLogStream = fs.createWriteStream(
 //   path.join('/tmp', 'access.log'),  
 //   { flags: 'a' }
@@ -30,7 +30,7 @@ app.use(cors({
 app.use(express.json());
 app.use(express.static(path.join(__dirname,'views')));
 app.use(express.static(path.join(__dirname,'public')));
-// app.use(morgan('combined',{stream:accessLogStream}));
+app.use(morgan('combined',{stream:accessLogStream}));
 //routes
 const userRoutes = require('./routes/userRoutes');
 const expenseRoutes = require('./routes/expenseRoutes');
