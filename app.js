@@ -30,7 +30,7 @@ app.use(cors({
 app.use(express.json());
 app.use(express.static(path.join(__dirname,'views')));
 app.use(express.static(path.join(__dirname,'public')));
-app.use(morgan('combined',{stream:accessLogStream}));
+// app.use(morgan('combined',{stream:accessLogStream}));
 //routes
 const userRoutes = require('./routes/userRoutes');
 const expenseRoutes = require('./routes/expenseRoutes');
