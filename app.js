@@ -15,7 +15,7 @@ const accessLogStream = fs.createWriteStream(
     {flags:'a'}
 );
 app.use(cors({
-  origin: ['http://127.0.0.1:5500', 'http://65.2.33.7'],                 
+  origin: ['http://127.0.0.1:5500'],                 
   methods: ['GET','POST','PUT','DELETE','PATCH','OPTIONS']
 }));
 
@@ -60,7 +60,9 @@ require('./models/association');
         await databse.sync({force:false});
         app.listen(port,()=>{
             //this console.log will be visible in terminal
-            console.log(`Server is running at http://localhost:${port}`);
+            // console.log(`Server is running at http://localhost:${port}`);
+            console.log(`Server is running at http://13.127.72.86`);
+
         })
     } catch (error) {
         console.error('Unable to connect to database')    
