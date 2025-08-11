@@ -65,7 +65,7 @@ require('./models/association');
 (async () => {
   try {
     await databse.sync({ force: false });
-    app.listen(port, () => {
+    app.listen(port, '0.0.0.0', () => {
       console.log(`Server is running at http://13.127.72.86:${port}`);
     });
   } catch (error) {
