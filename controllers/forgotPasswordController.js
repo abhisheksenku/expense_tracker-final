@@ -2,7 +2,9 @@ const userModel = require('../models/users');
 const PassWordResetRequest = require('../models/passwordResetRequest');
 const bcrypt = require('bcrypt');
 // const jwt = require('jsonwebtoken');
-require('dotenv').config();
+// require('dotenv').config();
+require('dotenv').config({ path: '/var/configs/expensetrackingapp/.env' });
+
 const { sendMail } = require('../services/emailService');
 
 const { v4: uuidv4 } = require('uuid');

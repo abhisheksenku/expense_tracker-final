@@ -3,7 +3,9 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const sequelize = require('../utilities/sql');
 const saltRounds = 10;
-require('dotenv').config();
+// require('dotenv').config();
+require('dotenv').config({ path: '/var/configs/expensetrackingapp/.env' });
+
 function generateAccessToken(id) {
     return jwt.sign({ UserId: id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 }

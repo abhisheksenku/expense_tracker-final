@@ -1,4 +1,6 @@
-require('dotenv').config();
+// require('dotenv').config();
+require('dotenv').config({ path: '/var/configs/expensetrackingapp/.env' });
+
 const nodeMailer = require('nodemailer');
 const transporter = nodeMailer.createTransport({
     secure:true,

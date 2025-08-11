@@ -1,5 +1,7 @@
 const { Cashfree, CFEnvironment } = require("cashfree-pg");
-require('dotenv').config();
+// require('dotenv').config();
+require('dotenv').config({ path: '/var/configs/expensetrackingapp/.env' });
+
 
 console.log("Using App ID:", process.env.CF_APP_ID);
 console.log("Using Secret Key:", process.env.CF_SECRET_KEY);

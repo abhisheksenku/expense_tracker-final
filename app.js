@@ -3,7 +3,9 @@ const express = require('express');
 // You're invoking the express() function, which returns an object (the Express application instance), and you're storing it in the app variable.
 const app = express();
 // A port is like a door through which your application communicates on your computer or server.
-require('dotenv').config();
+// require('dotenv').config();
+require('dotenv').config({ path: '/var/configs/expensetrackingapp/.env' });
+
 const port = process.env.PORT | 3000;
 const path = require('path');
 const cors = require('cors');

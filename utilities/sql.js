@@ -1,5 +1,7 @@
 // The dotenv package loads environment variables from the .env file, and the .config() method is what injects (or populates) those variables into process.env, making them usable in your application.
-require('dotenv').config();
+// require('dotenv').config();
+require('dotenv').config({ path: '/var/configs/expensetrackingapp/.env' });
+
 // we are destructuring -pulling out just that one property and assigning it to a variable named Sequelize.
 const {Sequelize} = require('sequelize');
 // we are creating a sequelize instance

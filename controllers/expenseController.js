@@ -1,7 +1,8 @@
 const expenseModel = require('../models/expenses');
 const User = require('../models/users');
 const sequelize = require('../utilities/sql');
-require('dotenv').config();
+// require('dotenv').config();
+require('dotenv').config({ path: '/var/configs/expensetrackingapp/.env' });
 const AWS = require('aws-sdk');
 const getExpenses = async(req,res)=>{
     try {
