@@ -6,7 +6,7 @@ const app = express();
 // require('dotenv').config();
 require('dotenv').config({ path: '/var/configs/expensetrackingapp/.env' });
 
-const port = process.env.PORT | 3000;
+const port = 3000;
 const path = require('path');
 const cors = require('cors');
 const morgan = require('morgan');
