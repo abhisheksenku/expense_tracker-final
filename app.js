@@ -6,7 +6,7 @@ const app = express();
 // require('dotenv').config();
 require('dotenv').config({ path: '/var/configs/expensetrackingapp/.env' });
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 const path = require('path');
 const cors = require('cors');
 const morgan = require('morgan');
@@ -57,19 +57,18 @@ app.get('/password/resetpassword/:token', (req, res) => {
 //database synchronization
 const databse = require('./utilities/sql');
 require('./models/association');
-(async ()=>{
-    try {
-        await databse.sync({force:false});
-        app.listen(port,()=>{
-            //this console.log will be visible in terminal
-            // console.log(`Server is running at http://localhost:${port}`);
-            console.log(`Server is running at http://13.127.72.86`);
-
-        })
-    } catch (error) {
-        console.error('Unable to connect to database')    
-    }
+(async () => {
+  try {
+    await databse.sync({ force: false });
+    app.listen(port, () => {
+      console.log(`Server is running at http://13.127.72.86:${port}`);
+    });
+  } catch (error) {
+    console.error('Unable to connect to database', error);
+    process.exit(1);  
+  }
 })();
+
 // database.sync({force:false})
 //             .then(()=>{
 //                 app.listen(port,()=>{
