@@ -16,10 +16,10 @@ const fs = require('fs');
 //     path.join(__dirname,'access.log'),
 //     {flags:'a'}
 // );
-const accessLogStream = fs.createWriteStream(
-  path.join('/tmp', 'access.log'),  
-  { flags: 'a' }
-);
+// const accessLogStream = fs.createWriteStream(
+//   path.join('/tmp', 'access.log'),  
+//   { flags: 'a' }
+// );
 
 app.use(cors({
   origin: ['http://127.0.0.1:5500'],                 
